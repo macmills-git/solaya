@@ -7,7 +7,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-[linear-gradient(172deg,#5B87AB_0%,#759FC1_22%,#9ABFD9_45%,#C4DCEE_68%,#E8F2F8_86%,#FFFFFF_100%)]">
+    <section className="relative w-full overflow-hidden bg-[linear-gradient(175deg,#6890B4_0%,#82A6C6_22%,#A3C0DB_44%,#C6D8E8_68%,#EFF4F9_86%,#FFFFFF_100%)]">
       
       {/* Top spacing & typography container */}
       <div className="pt-32 sm:pt-40 lg:pt-44 px-6 sm:px-8 max-w-4xl mx-auto text-center relative z-20">
@@ -34,19 +34,21 @@ export const Hero: React.FC<HeroProps> = () => {
 
       </div>
 
-      {/* Central Architectural Modernist Villa (exact Haven reference building) */}
+      {/* Central Architectural Rammed Earth Villa with Infinity Pool (Seamless Background Blend) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-2xl lg:max-w-3xl xl:max-w-[860px] mx-auto px-4 mt-8 sm:mt-10 relative z-10 -mb-0.5"
+        className="w-full max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-[1080px] mx-auto px-4 sm:px-6 mt-8 sm:mt-10 relative z-10 -mb-1"
       >
-        <img
-          src="/images/solaya_haven_hero_seamless.png"
-          alt="Solaya Luxury Sanctuary Architecture"
-          className="w-full h-auto object-contain block mx-auto select-none pointer-events-none"
-          loading="eager"
-        />
+        <div className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_80%,transparent_100%)]">
+          <img
+            src="/images/solaya_haven_hero_earth_villa.png"
+            alt="Solaya Contemporary Luxury Sanctuary Residence"
+            className="w-full h-auto object-contain block mx-auto select-none pointer-events-none"
+            loading="eager"
+          />
+        </div>
       </motion.div>
 
     </section>
