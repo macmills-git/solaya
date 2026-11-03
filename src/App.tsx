@@ -8,7 +8,7 @@ import { ManifestoEditorialSection } from './components/ManifestoEditorialSectio
 import { DarkTakeoverSection } from './components/DarkTakeoverSection';
 import { JournalMinimal } from './components/JournalMinimal';
 import { Footer } from './components/Footer';
-import { SanctuaryDetailModal } from './components/SanctuaryDetailModal';
+import { SanctuaryDetailModal, ModalTheme } from './components/SanctuaryDetailModal';
 import { LightboxModal } from './components/LightboxModal';
 import { Toast } from './components/Toast';
 import { useLenis } from './hooks/useLenis';
@@ -19,8 +19,11 @@ export function App() {
   const [currency] = useState<CurrencyCode>('USD');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Full Screen Expansive Sanctuary Details Modal
-  const [selectedSanctuary, setSelectedSanctuary] = useState<Property | null>(null);
+  // Full Screen Expansive Details Modal with section background color adaptation
+  const [selectedSanctuary, setSelectedSanctuary] = useState<{
+    property: Property;
+    theme: ModalTheme;
+  } | null>(null);
 
   // Photography Lightbox Modal
   const [lightbox, setLightbox] = useState<{ isOpen: boolean; src: string; caption: string }>({
@@ -47,13 +50,6 @@ export function App() {
     setLightbox((prev) => ({ ...prev, isOpen: false }));
   };
 
-  const handleScrollToSanctuaries = () => {
-    const el = document.getElementById('sanctuaries');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white text-neutral-900 antialiased flex flex-col font-ambiant selection:bg-neutral-900 selection:text-white">
       
@@ -61,51 +57,52 @@ export function App() {
       <Navbar />
 
       <main id="main-content">
-        {/* 1. Haven* Soft Sky Gradient Hero */}
+        {/* 1. Haven* Soft Sky Gradient Hero (Modal inherits Sky Blue Theme) */}
         <Hero
-          onOpenBooking={handleScrollToSanctuaries}
+          onOpenBooking={() => setSelectedSanctuary({ property: PROPERTIES[0], theme: 'sky' })}
         />
 
-        {/* 2. Haven* Signature Headline ("Where your vision finds its [ 🖼️ ] home." + email pill) */}
+        {/* 2. Haven* Signature Headline */}
         <InlineHeadlineSection
           onShowToast={showToast}
         />
 
-        {/* 3. Dot Grid Showcase Section (Scattered visual vignettes + "perfect customer experiences") */}
+        {/* 3. Dot Grid Showcase Section (Modal inherits Cobalt Matrix Theme) */}
         <DotGridShowcaseSection
-          onOpenBooking={() => setSelectedSanctuary(PROPERTIES[0])}
-          onOpenMonograph={() => showToast('Private monograph sent to your registered address.')}
+          onOpenBooking={() => setSelectedSanctuary({ property: PROPERTIES[0], theme: 'cobalt' })}
+          onOpenMonograph={() => setSelectedSanctuary({ property: PROPERTIES[0], theme: 'cobalt' })}
         />
 
-        {/* 4. Minimalist Sanctuaries Portfolio (Opens Expansive Details Modal) */}
+        {/* 4. Minimalist Sanctuaries Portfolio (Modal inherits Warm Alabaster / Sand Theme) */}
         <SanctuariesMinimal
           currency={currency}
-          onBookProperty={(prop: Property) => setSelectedSanctuary(prop)}
+          onBookProperty={(prop: Property) => setSelectedSanctuary({ property: prop, theme: 'sand' })}
           onOpenLightbox={handleOpenLightbox}
         />
 
         {/* 5. Giant Minimal Editorial Statement */}
         <ManifestoEditorialSection />
 
-        {/* 6. Pure Black Takeover ("Crafting Spaces, Crafting Stories" with Fokus poster style) */}
+        {/* 6. Pure Black Takeover (Modal inherits Pure Obsidian Black Theme) */}
         <DarkTakeoverSection
-          onOpenBooking={() => setSelectedSanctuary(PROPERTIES[0])}
+          onOpenBooking={() => setSelectedSanctuary({ property: PROPERTIES[0], theme: 'dark' })}
           onOpenLightbox={handleOpenLightbox}
         />
 
-        {/* 7. Clean Editorial Journal (3-column layout matching Reference 3) */}
+        {/* 7. Clean Editorial Journal (Modal inherits Editorial Pure White Theme) */}
         <JournalMinimal />
       </main>
 
-      {/* 8. Minimal Architectural Footer (Sky gradient from hero fading into dark overlay at bottom) */}
+      {/* 8. Minimal Architectural Footer (Modal inherits Oceanic Midnight Theme) */}
       <Footer
-        onOpenBooking={handleScrollToSanctuaries}
+        onOpenBooking={() => setSelectedSanctuary({ property: PROPERTIES[0], theme: 'midnight' })}
       />
 
-      {/* Expansive Full-Screen Sanctuary Details Modal (Services, Amenities, Discounted 3+ Days Rates, Monograph Gallery) */}
+      {/* Expansive Full-Screen Modal (Inherits the background color of whichever section triggered it) */}
       {selectedSanctuary && (
         <SanctuaryDetailModal
-          property={selectedSanctuary}
+          property={selectedSanctuary.property}
+          theme={selectedSanctuary.theme}
           currency={currency}
           onClose={() => setSelectedSanctuary(null)}
           onShowToast={showToast}

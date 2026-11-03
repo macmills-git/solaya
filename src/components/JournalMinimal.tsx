@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Share2, Bookmark, Check } from 'lucide-react';
 import { ARTICLES } from '../data/solayaData';
 import { Article } from '../types';
 import { CornerPixelAccents } from './CornerPixelAccents';
@@ -7,9 +7,11 @@ import { pauseLenis, resumeLenis } from '../hooks/useLenis';
 
 export const JournalMinimal: React.FC = () => {
   const [activeArticle, setActiveArticle] = useState<Article | null>(null);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
   const articleModalRef = useRef<HTMLDivElement>(null);
 
-  // Manage Lenis & body scroll lock when article reader is open
+  // Manage Lenis & body scroll lock when expanded article reader is open
   useEffect(() => {
     if (activeArticle) {
       const prevOverflow = document.body.style.overflow;
@@ -42,6 +44,12 @@ export const JournalMinimal: React.FC = () => {
       };
     }
   }, [activeArticle]);
+
+  const handleShare = () => {
+    setCopiedLink(true);
+    navigator.clipboard?.writeText?.(window.location.href);
+    setTimeout(() => setCopiedLink(false), 2000);
+  };
 
   // 3 Articles for the 3-column layout matching Image 3 reference
   const articlesList = ARTICLES.slice(0, 3);
@@ -199,50 +207,141 @@ export const JournalMinimal: React.FC = () => {
 
       </div>
 
-      {/* Article Reader Modal */}
+      {/* Expanded Full-Screen Article Reader Modal (Taking Section's Pure White Background) */}
       {activeArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div
-            ref={articleModalRef}
-            tabIndex={-1}
-            data-lenis-prevent="true"
-            className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto overscroll-contain space-y-6 text-neutral-900 outline-none"
-            style={{ WebkitOverflowScrolling: 'touch' }}
-          >
+        <div
+          ref={articleModalRef}
+          tabIndex={-1}
+          data-lenis-prevent="true"
+          className="fixed inset-0 z-50 w-full h-full overflow-y-auto overscroll-contain bg-white text-neutral-900 animate-in fade-in duration-300 outline-none"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          
+          {/* 1. Sticky Editorial Top Bar */}
+          <header className="sticky top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-neutral-200/70 py-4 px-6 sm:px-12 flex items-center justify-between">
+            
+            {/* Prominent Back Button */}
             <button
               onClick={() => setActiveArticle(null)}
-              className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-neutral-100 transition"
-              aria-label="Close article"
+              className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full border border-neutral-300 bg-[#F9F9F8] hover:bg-neutral-900 hover:text-white hover:border-neutral-900 text-neutral-800 text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95 lowercase"
             >
-              <X className="w-5 h-5 text-neutral-500" />
+              <ArrowLeft className="w-4 h-4 stroke-[2]" />
+              <span>back to stories</span>
             </button>
 
-            <div>
-              <span className="text-[10px] font-mono tracking-widest text-neutral-400 block mb-2 lowercase">
-                {activeArticle.category.toLowerCase()} · {activeArticle.readTime.toLowerCase()}
-              </span>
-              <h2 className="font-queens text-3xl sm:text-4xl font-bold leading-tight lowercase">
+            {/* Center Story Identity */}
+            <div className="hidden md:flex items-center gap-2 text-xs font-mono text-neutral-500 lowercase">
+              <span className="font-queens font-bold text-neutral-900 text-sm">solaya journal</span>
+              <span>·</span>
+              <span>{activeArticle.category.toLowerCase()}</span>
+            </div>
+
+            {/* Right Quick Share / Bookmark */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setBookmarked((b) => !b)}
+                className={`p-2 rounded-full border text-xs transition ${
+                  bookmarked
+                    ? 'border-neutral-900 bg-neutral-900 text-white'
+                    : 'border-neutral-200 hover:bg-neutral-100 text-neutral-600'
+                }`}
+                title="Bookmark dispatch"
+              >
+                <Bookmark className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-200 hover:bg-neutral-100 text-xs text-neutral-700 transition"
+              >
+                {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
+                <span className="font-mono text-[11px] lowercase">{copiedLink ? 'link copied' : 'share'}</span>
+              </button>
+            </div>
+
+          </header>
+
+          {/* 2. Monumental Hero Showcase */}
+          <section className="relative w-full aspect-[16/8] max-h-[64vh] overflow-hidden bg-neutral-900">
+            <img
+              src={activeArticle.image}
+              alt={activeArticle.title}
+              className="w-full h-full object-cover select-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+            {/* Stepped Pixel Mosaic Corner */}
+            <CornerPixelAccents position="top-right" color="bg-white" className="opacity-90" />
+
+            <div className="absolute bottom-8 sm:bottom-12 left-6 sm:left-12 right-6 sm:right-12 text-white space-y-3 max-w-4xl">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[10px] font-mono tracking-widest uppercase">
+                  {activeArticle.category}
+                </span>
+                <span className="font-mono text-xs text-white/80 lowercase">
+                  {activeArticle.readTime.toLowerCase()}
+                </span>
+              </div>
+
+              <h1 className="font-queens text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight lowercase">
                 {activeArticle.title.toLowerCase()}
-              </h2>
-              <span className="text-xs text-neutral-400 font-mono mt-1 block lowercase">
-                by {activeArticle.author.toLowerCase()} · {activeArticle.date.toLowerCase()}
-              </span>
-            </div>
+              </h1>
 
-            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-neutral-100">
-              <img
-                src={activeArticle.image}
-                alt={activeArticle.title}
-                className="w-full h-full object-cover"
-              />
+              <div className="flex items-center gap-2 font-mono text-xs text-white/80 lowercase pt-1">
+                <span>by {activeArticle.author.toLowerCase()}</span>
+                <span>·</span>
+                <span>{activeArticle.date.toLowerCase()}</span>
+              </div>
             </div>
+          </section>
 
-            <div className="space-y-4 font-ambiant text-sm sm:text-base text-neutral-700 leading-relaxed font-light">
-              {activeArticle.content.map((p, i) => (
-                <p key={i} className="lowercase">{p.toLowerCase()}</p>
+          {/* 3. Main Reading Essay Body */}
+          <main className="max-w-4xl mx-auto px-6 sm:px-12 py-16 sm:py-24 space-y-12">
+            
+            {/* Opening Dropcap Narrative */}
+            <div className="space-y-6 font-ambiant text-base sm:text-lg text-neutral-800 leading-relaxed font-light">
+              {activeArticle.content.map((paragraph, idx) => (
+                <p key={idx} className={idx === 0 ? 'first-letter:font-queens first-letter:text-5xl first-letter:font-bold first-letter:mr-2 first-letter:float-left lowercase' : 'lowercase'}>
+                  {paragraph.toLowerCase()}
+                </p>
               ))}
             </div>
-          </div>
+
+            {/* Editorial Pull Quote */}
+            <blockquote className="my-10 p-8 rounded-3xl bg-[#FBFBF9] border border-neutral-200/70 space-y-3">
+              <span className="font-arcilla text-4xl text-solaya-terracotta leading-none">”</span>
+              <p className="font-queens text-xl sm:text-2xl font-bold text-neutral-900 leading-snug lowercase">
+                "true luxury is not an accumulation of gilded surfaces; it is the deliberate presence of silence, space, and architectural honesty."
+              </p>
+              <cite className="block font-mono text-xs text-neutral-500 not-italic lowercase">
+                — {activeArticle.author.toLowerCase()}, solaya architectural monographs
+              </cite>
+            </blockquote>
+
+            {/* Author Attribution Card */}
+            <div className="pt-8 border-t border-neutral-200 flex items-center justify-between gap-6">
+              <div className="space-y-1">
+                <span className="font-mono text-[10px] tracking-widest uppercase text-neutral-400 block">
+                  written & curated by
+                </span>
+                <h4 className="font-queens text-lg font-bold text-neutral-900 lowercase">
+                  {activeArticle.author.toLowerCase()}
+                </h4>
+                <p className="text-xs text-neutral-500 font-mono lowercase">
+                  senior architectural writer · solaya atelier accra
+                </p>
+              </div>
+
+              <button
+                onClick={() => setActiveArticle(null)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-300 hover:bg-neutral-900 hover:text-white transition text-xs font-semibold lowercase"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>back to stories</span>
+              </button>
+            </div>
+
+          </main>
+
         </div>
       )}
 
