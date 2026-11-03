@@ -1,0 +1,146 @@
+@import 'lenis/dist/lenis.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-forest: #183D32;
+    --color-sand: #DCCBB0;
+    --color-ivory: #F8F5EF;
+    --color-terracotta: #B96F51;
+    --color-charcoal: #1A1E1A;
+    --color-white: #FFFFFF;
+  }
+
+  /* Font Face fallbacks and mappings */
+  @font-face {
+    font-family: 'SLTF Arcilla';
+    src: local('Cormorant Garamond'), local('Playfair Display'), serif;
+    font-weight: 300 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Queens';
+    src: local('Cinzel'), local('Baskerville'), serif;
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Ambiant Sans';
+    src: local('Plus Jakarta Sans'), local('Inter'), sans-serif;
+    font-weight: 300 700;
+    font-display: swap;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #1A1E1A;
+    font-family: 'Ambiant Sans', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-arcilla {
+    font-family: 'SLTF Arcilla', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.025em;
+    text-transform: lowercase;
+  }
+
+  .font-queens {
+    font-family: 'Queens', 'Cinzel', Baskerville, serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-ambiant {
+    font-family: 'Ambiant Sans', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Inline Pill Image inside Heading (Haven reference style) */
+.inline-image-pill {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: hidden;
+  height: 0.9em;
+  width: 2.1em;
+  margin: 0 0.15em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.inline-image-pill:hover {
+  transform: scale(1.12);
+}
+
+/* Custom luxury scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCCBB0;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #183D32;
+}
+
+/* Device Preview Frames */
+.viewport-frame-desktop {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport-frame-tablet {
+  width: 768px;
+  max-width: 100%;
+  margin: 32px auto;
+  box-shadow: 0 30px 80px -15px rgba(24, 61, 50, 0.35);
+  border-radius: 32px;
+  border: 10px solid #183D32;
+  overflow: hidden;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport-frame-mobile {
+  width: 390px;
+  max-width: 100%;
+  margin: 32px auto;
+  box-shadow: 0 30px 80px -15px rgba(24, 61, 50, 0.4);
+  border-radius: 44px;
+  border: 12px solid #183D32;
+  overflow: hidden;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle image zoom hover */
+.img-luxury-zoom {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+.img-luxury-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Pill badge utility */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
