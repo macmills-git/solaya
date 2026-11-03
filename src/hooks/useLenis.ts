@@ -5,6 +5,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+let globalLenisInstance: Lenis | null = null;
+
+export const pauseLenis = () => {
+  if (globalLenisInstance) {
+    globalLenisInstance.stop();
+  }
+};
+
+export const resumeLenis = () => {
+  if (globalLenisInstance) {
+    globalLenisInstance.start();
+  }
+};
+
 export function useLenis(enabled: boolean = true) {
   useEffect(() => {
     if (!enabled) return;
@@ -16,7 +30,21 @@ export function useLenis(enabled: boolean = true) {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.9,
+      prevent: (node) => {
+        if (typeof document !== 'undefined' && document.body.classList.contains('modal-open')) {
+          return true;
+        }
+        if (node instanceof HTMLElement) {
+          return (
+            node.hasAttribute('data-lenis-prevent') ||
+            Boolean(node.closest?.('[data-lenis-prevent]'))
+          );
+        }
+        return false;
+      },
     });
+
+    globalLenisInstance = lenis;
 
     // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -31,7 +59,7 @@ export function useLenis(enabled: boolean = true) {
     return () => {
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
+      globalLenisInstance = null;
     };
   }, [enabled]);
 }
-

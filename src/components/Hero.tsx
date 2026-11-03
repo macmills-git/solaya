@@ -34,18 +34,18 @@ export const Hero: React.FC<HeroProps> = () => {
 
       </div>
 
-      {/* Central Architectural Rammed Earth Villa with Infinity Pool (Seamless Background Blend) */}
+      {/* Full-Width Architectural Rammed Earth Villa (Edge-to-Edge Full Screen Width) */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-[1080px] mx-auto px-4 sm:px-6 mt-8 sm:mt-10 relative z-10 -mb-1"
+        className="w-full mt-6 sm:mt-8 relative z-10 -mb-1"
       >
-        <div className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_80%,transparent_100%)]">
+        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_82%,transparent_100%)]">
           <img
-            src="/images/solaya_haven_hero_earth_villa.png"
+            src="/images/solaya_haven_hero_earth_villa_fullbleed.png"
             alt="Solaya Contemporary Luxury Sanctuary Residence"
-            className="w-full h-auto object-contain block mx-auto select-none pointer-events-none"
+            className="w-full h-auto min-h-[420px] sm:min-h-[560px] lg:min-h-[700px] object-cover object-bottom select-none pointer-events-none"
             loading="eager"
           />
         </div>

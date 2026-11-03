@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Check, Sparkles, Compass, ShieldCheck, Heart, Share2, Calendar, Users, Moon } from 'lucide-react';
 import { Property, CurrencyCode } from '../types';
 import { CURRENCIES } from '../data/solayaData';
+import { pauseLenis, resumeLenis } from '../hooks/useLenis';
 
 interface SanctuaryDetailModalProps {
   property: Property;
@@ -17,13 +18,54 @@ export const SanctuaryDetailModal: React.FC<SanctuaryDetailModalProps> = ({
   onShowToast,
 }) => {
   const curr = CURRENCIES[currency] || CURRENCIES.USD;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Interactive Stay Calculator State
-  const [nights, setNights] = useState<number>(3); // default to 3 nights to highlight the discount!
+  const [nights, setNights] = useState<number>(3); // default to 3 nights to highlight multi-night discount
   const [guestsCount, setGuestsCount] = useState<number>(2);
   const [selectedSuiteIdx, setSelectedSuiteIdx] = useState<number>(0);
   const [inquirySent, setInquirySent] = useState<boolean>(false);
   const [activePhotoIdx, setActivePhotoIdx] = useState<number>(0);
+
+  // Robust modal scrolling & background lock
+  useEffect(() => {
+    // 1. Prevent background page scroll & signal modal-open to Lenis prevent check
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+
+    // 2. Pause global Lenis scroll loop
+    pauseLenis();
+
+    // 3. Stop wheel propagation to window so Lenis never intercepts modal scroll events
+    const container = containerRef.current;
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+    };
+
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: true });
+      container.focus();
+    }
+
+    // 4. Keyboard Escape to close
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.classList.remove('modal-open');
+      resumeLenis();
+      window.removeEventListener('keydown', handleKeyDown);
+      if (container) {
+        container.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [onClose]);
 
   // Currency helper
   const formatMoney = (usd: number) => {
@@ -51,16 +93,22 @@ export const SanctuaryDetailModal: React.FC<SanctuaryDetailModalProps> = ({
 
   const handleBook = () => {
     setInquirySent(true);
-    onShowToast(`Sanctuary inquiry confirmed for ${property.name} (${nights} nights). Our private registrar will contact you.`);
+    onShowToast(`sanctuary inquiry confirmed for ${property.name} (${nights} nights). our private registrar will contact you.`);
   };
 
   return (
-    <div className="fixed inset-0 z-50 w-screen h-screen overflow-y-auto bg-[#FDFBF7] text-neutral-900 animate-in fade-in duration-300">
+    <div
+      ref={containerRef}
+      tabIndex={-1}
+      data-lenis-prevent="true"
+      className="fixed inset-0 z-50 w-full h-full overflow-y-auto overscroll-contain bg-[#FDFBF7] text-neutral-900 animate-in fade-in duration-300 outline-none"
+      style={{ WebkitOverflowScrolling: 'touch' }}
+    >
       
       {/* 1. Sticky Editorial Top Bar */}
       <header className="sticky top-0 left-0 right-0 z-40 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-neutral-200/60 py-4 px-6 sm:px-12 flex items-center justify-between">
         
-        {/* Prominent Back Button (as explicitly requested) */}
+        {/* Prominent Back Button */}
         <button
           onClick={onClose}
           className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full border border-neutral-300/80 bg-white hover:bg-neutral-900 hover:text-white hover:border-neutral-900 text-neutral-800 text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95 lowercase"

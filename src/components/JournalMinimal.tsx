@@ -1,11 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
 import { ARTICLES } from '../data/solayaData';
 import { Article } from '../types';
 import { CornerPixelAccents } from './CornerPixelAccents';
+import { pauseLenis, resumeLenis } from '../hooks/useLenis';
 
 export const JournalMinimal: React.FC = () => {
   const [activeArticle, setActiveArticle] = useState<Article | null>(null);
+  const articleModalRef = useRef<HTMLDivElement>(null);
+
+  // Manage Lenis & body scroll lock when article reader is open
+  useEffect(() => {
+    if (activeArticle) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
+      pauseLenis();
+
+      const container = articleModalRef.current;
+      const handleWheel = (e: WheelEvent) => {
+        e.stopPropagation();
+      };
+      if (container) {
+        container.addEventListener('wheel', handleWheel, { passive: true });
+        container.focus();
+      }
+
+      const handleKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setActiveArticle(null);
+      };
+      window.addEventListener('keydown', handleKey);
+
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        document.body.classList.remove('modal-open');
+        resumeLenis();
+        window.removeEventListener('keydown', handleKey);
+        if (container) {
+          container.removeEventListener('wheel', handleWheel);
+        }
+      };
+    }
+  }, [activeArticle]);
 
   // 3 Articles for the 3-column layout matching Image 3 reference
   const articlesList = ARTICLES.slice(0, 3);
@@ -166,7 +202,13 @@ export const JournalMinimal: React.FC = () => {
       {/* Article Reader Modal */}
       {activeArticle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto space-y-6 text-neutral-900">
+          <div
+            ref={articleModalRef}
+            tabIndex={-1}
+            data-lenis-prevent="true"
+            className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto overscroll-contain space-y-6 text-neutral-900 outline-none"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
             <button
               onClick={() => setActiveArticle(null)}
               className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-neutral-100 transition"
