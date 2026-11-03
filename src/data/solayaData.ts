@@ -102,16 +102,73 @@ export const PROPERTIES: Property[] = [
     baseRateUSD: 1450,
     guests: 6,
     bedrooms: 3,
+    bathrooms: 4,
+    sqm: 620,
     image: '/images/the_azure_house_6.jpg',
     gallery: [
       '/images/the_azure_house_6.jpg',
       '/images/zanzibar_coastal_escapes_2.jpg',
+      '/images/zanzibar_20.jpg',
       '/images/wellness___rejuvenation_10.jpg',
       '/images/atmosphere_15.jpg',
+      '/images/dining_25.jpg',
+      '/images/private_dining_11.jpg',
+      '/images/solaya_coastal_sanctuary_1.jpg',
     ],
     tagline: 'Where carved coral rag meets the turquoise Indian Ocean tide.',
     description: 'Perched above a private tidal sandspit in Matemwe, The Azure House combines traditional Swahili coral limestone construction with contemporary organic minimalism. Features open-air oceanfront colonnades, a saltwater infinity pool, and a private wooden dhow at your disposal.',
-    amenities: ['Dedicated Private Chef & Butler', 'Saltwater Oceanfront Pool', 'Private Dhow & Captain', 'Open-air Stone Bathhouse', 'Complimentary VIP Airport Transfer', 'High-Speed Starlink Connectivity'],
+    discount3DaysPercent: 15,
+    discount7DaysPercent: 25,
+    architectQuote: {
+      text: "The architecture does not impose upon the reef; it bows to it. Every coral stone wall was hand-dressed by fourth-generation Matemwe masons to breathe with the monsoon winds.",
+      author: "Kofi Boateng & Amina Said",
+      role: "Lead Curating Architects"
+    },
+    sustainabilityMetrics: [
+      { stat: "100%", label: "Solar & Ocean Current Powered" },
+      { stat: "0%", label: "Single-Use Plastic Footprint" },
+      { stat: "92%", label: "Locally Sourced Coral Rag & Teak" },
+      { stat: "100%", label: "Tidal Greywater Filtration" },
+    ],
+    services: [
+      {
+        category: "Bespoke Culinary",
+        items: [
+          "Private resident chef crafting daily bespoke seasonal menus",
+          "Fresh morning Indian Ocean catch delivered by local dhow fishermen",
+          "Sunset charcoal braai on private sandspit with curated wines",
+          "Artisanal Zanzibar spice tea & organic tropical fruit tastings"
+        ]
+      },
+      {
+        category: "Stillness & Wellness",
+        items: [
+          "In-villa oceanfront stone bath rituals with organic botanical oils",
+          "Daily sunrise yoga instruction on cantilevered pool deck",
+          "Private sound bath meditation with singing bowls",
+          "Herbal steam chamber with indigenous coastal flora"
+        ]
+      },
+      {
+        category: "Concierge & Expeditions",
+        items: [
+          "Private handcrafted Swahili wooden dhow & dedicated captain",
+          "VIP expedited airport customs escort & luxury chauffeur transfer",
+          "Guided private excursions to Matemwe seaweed farming cooperative",
+          "24/7 personal estate host tending to all unexpressed needs"
+        ]
+      },
+      {
+        category: "Architectural Amenities",
+        items: [
+          "28m saltwater infinity pool extending toward the reef",
+          "High-speed Starlink satellite connectivity across entire estate",
+          "Marshall acoustic sound system & curated monograph library",
+          "Belgian organic linen bedding & hand-carved stone bath basins"
+        ]
+      }
+    ],
+    amenities: ['Dedicated Private Chef & Butler', 'Saltwater Oceanfront Pool', 'Private Dhow & Captain', 'Open-air Stone Bathhouse', 'Complimentary VIP Airport Transfer', 'High-Speed Starlink Connectivity', 'Panoramic Sunset Rooftop', 'Private Coral Sandspit Access'],
     suites: [
       { name: 'Signature Ocean Villa Suite', upgradeUSD: 0, description: 'Master suite with panoramic oceanfront terrace and freestanding hand-carved stone tub.' },
       { name: 'Royal Coral Pavilion (Full Buyout)', upgradeUSD: 850, description: 'Exclusive three-bedroom residence with private beach gate, personal butler, and sunset dining pavilion.' },
@@ -127,16 +184,73 @@ export const PROPERTIES: Property[] = [
     baseRateUSD: 2400,
     guests: 4,
     bedrooms: 2,
+    bathrooms: 3,
+    sqm: 480,
     image: '/images/mwezi_retreat_7.jpg',
     gallery: [
       '/images/mwezi_retreat_7.jpg',
       '/images/rwanda_mountain_sanctuary_3.jpg',
+      '/images/rwanda_21.jpg',
+      '/images/rwanda_28.jpg',
       '/images/adventure___exploration_14.jpg',
       '/images/atmosphere_15.jpg',
+      '/images/culture_26.jpg',
+      '/images/dining_25.jpg',
     ],
     tagline: 'Woven architectural nests hovering gently above the primal volcano mist.',
     description: 'Constructed from sustainably woven timber pods inspired by historical Rwandan royal palaces. Mwezi Retreat rests against the slopes of Mount Bisoke, providing direct private ranger access for gorilla trekking and fireside tranquility.',
-    amenities: ['Private Gorilla Trekking Concierge', 'Central Volcanic Hearth & Tea Room', 'In-Chalet Heated Plunge Pools', 'Single-Estate Botanical Spa', 'All Gourmet Farm-to-Table Meals', 'Private Helicopter Helipad'],
+    discount3DaysPercent: 15,
+    discount7DaysPercent: 25,
+    architectQuote: {
+      text: "We elevated the structures on slender timber stilts to allow the primeval ferns and bamboo root networks to thrive untouched beneath the living spaces.",
+      author: "Jean-Paul Habimana",
+      role: "Architectural Director, Kigali"
+    },
+    sustainabilityMetrics: [
+      { stat: "100%", label: "Geothermal & Hydro Powered" },
+      { stat: "50ha", label: "Indigenous Forest Buffer Reforested" },
+      { stat: "96%", label: "Harvested Rainwater & Spring Source" },
+      { stat: "0km", label: "Produce Sourced from Volcano Foothills" },
+    ],
+    services: [
+      {
+        category: "Bespoke Culinary",
+        items: [
+          "Volcanic stone hearth fireside dining with highland ingredients",
+          "Private tea sommelier degustation with single-estate harvest",
+          "Chef-curated mountain trekking picnic provisions",
+          "Freshly churned mountain honey and artisanal goat milk delicacies"
+        ]
+      },
+      {
+        category: "Stillness & Wellness",
+        items: [
+          "Geothermal heated stone plunge pools looking into gorilla sanctuary",
+          "Botanical eucalyptus and mountain herb steam inhalations",
+          "Aromatherapy deep-tissue massage following forest expeditions",
+          "Fireside contemplation chambers with private tea service"
+        ]
+      },
+      {
+        category: "Concierge & Expeditions",
+        items: [
+          "Privately permitted gorilla trekking escort with senior master rangers",
+          "Private helicopter transfer landing directly on sanctuary helipad",
+          "Golden monkey tracking and Dian Fossey tomb historical walks",
+          "Exclusive artisan pottery and basketry workshops with local matriarchs"
+        ]
+      },
+      {
+        category: "Architectural Amenities",
+        items: [
+          "Handwoven bamboo geometric ceiling domes with central oculus",
+          "Suspended wood-burning rotating cast iron fireplace",
+          "Ultra-quiet air filtration and radiant underfloor stone heating",
+          "High-definition astronomical telescope for equatorial starlight"
+        ]
+      }
+    ],
+    amenities: ['Private Gorilla Trekking Concierge', 'Central Volcanic Hearth & Tea Room', 'In-Chalet Heated Plunge Pools', 'Single-Estate Botanical Spa', 'All Gourmet Farm-to-Table Meals', 'Private Helicopter Helipad', 'Heated Stone Floors', 'Highland Telescope Observation Deck'],
     suites: [
       { name: 'Forest Canopy Pod Suite', upgradeUSD: 0, description: 'Curved timber chalet with private mist viewing deck and wood-burning stove.' },
       { name: 'Virunga Summit Residence', upgradeUSD: 1100, description: 'Two-story organic woven residence with 360-degree views of five volcano peaks.' },
@@ -152,16 +266,73 @@ export const PROPERTIES: Property[] = [
     baseRateUSD: 1250,
     guests: 8,
     bedrooms: 4,
+    bathrooms: 5,
+    sqm: 780,
     image: '/images/the_palm_residence_8.jpg',
     gallery: [
       '/images/the_palm_residence_8.jpg',
       '/images/ghana_coastal___culture_4.jpg',
+      '/images/ghana_22.jpg',
+      '/images/ghana_29.jpg',
       '/images/cultural_discovery_12.jpg',
       '/images/solaya_coastal_sanctuary_1.jpg',
+      '/images/atmosphere_15.jpg',
+      '/images/dining_25.jpg',
     ],
     tagline: 'Rammed earth, modern West African sculpture, and Atlantic serenity.',
     description: 'Located 50 minutes west of Accra, The Palm Residence is an architectural tour-de-force created with earth excavated on-site. Expansive glass doors blur the distinction between interior galleries and the roar of the Atlantic.',
-    amenities: ['Curated Contemporary Art Collection', '30m Lap Pool & Sunset Cabana', 'Private Sommelier & Mixologist', 'Surf Concierge & Private Board Fleet', 'Direct Beachfront Access', 'Accra Airport Chauffeur Escort'],
+    discount3DaysPercent: 15,
+    discount7DaysPercent: 25,
+    architectQuote: {
+      text: "The red laterite soil of Gomoa Fetteh holds thermal memory. By ramming this earth into monolithic structural walls, we created spaces that remain naturally cool during equatorial midday.",
+      author: "Kwaku Mensah",
+      role: "Principal Bioclimatic Architect"
+    },
+    sustainabilityMetrics: [
+      { stat: "98%", label: "Bioclimatic Rammed Earth On-Site" },
+      { stat: "100%", label: "Off-Grid Solar Array & Batteries" },
+      { stat: "14", label: "Contemporary Ghanaian Artists Featured" },
+      { stat: "100%", label: "Zero Mechanical AC Required in Public Areas" },
+    ],
+    services: [
+      {
+        category: "Bespoke Culinary",
+        items: [
+          "Private chef specializing in contemporary coastal West African gastronomy",
+          "Wood-fired Atlantic rock lobster and cassava leaf delicacies",
+          "Palm wine reductions and aged rum cocktail mixology",
+          "Sunrise breakfast served on private clifftop ocean platform"
+        ]
+      },
+      {
+        category: "Stillness & Wellness",
+        items: [
+          "Atlantic high-tide natural surf sound immersion therapies",
+          "Raw cocoa butter and moringa body wraps in open-air cabanas",
+          "Private beachfront meditation pavilion shaded by coconut palms",
+          "Heated saltwater lap pool with negative-edge ocean horizon"
+        ]
+      },
+      {
+        category: "Concierge & Expeditions",
+        items: [
+          "Private chauffeur collection from Kotoka International Airport, Accra",
+          "VIP private gallery and studio visits with Accra contemporary art pioneers",
+          "Coastal surf guide and premium board quiver at private disposal",
+          "Curated historical day journey to Cape Coast and Elmina sanctuaries"
+        ]
+      },
+      {
+        category: "Architectural Amenities",
+        items: [
+          "Pivoting floor-to-ceiling glass facades opening directly to sea breezes",
+          "Original monumental sculptures and curated private art library",
+          "Outdoor sunken lounge with open-flame evening fire pit",
+          "High-speed Starlink satellite mesh across the 2-acre private compound"
+        ]
+      }
+    ],
+    amenities: ['Curated Contemporary Art Collection', '30m Lap Pool & Sunset Cabana', 'Private Sommelier & Mixologist', 'Surf Concierge & Private Board Fleet', 'Direct Beachfront Access', 'Accra Airport Chauffeur Escort', 'Sunken Fire Pit Lounge', 'Outdoor Monolithic Bathtubs'],
     suites: [
       { name: 'Atlantic Oceanfront Suite', upgradeUSD: 0, description: 'High-ceilinged pavilion with floor-to-ceiling pivoting glass walls facing the Atlantic.' },
       { name: 'The Master Artisan Estate', upgradeUSD: 700, description: 'Four-suite compound featuring an enclosed tropical courtyard and private open-air dining pavilion.' },
@@ -177,16 +348,73 @@ export const PROPERTIES: Property[] = [
     baseRateUSD: 980,
     guests: 4,
     bedrooms: 2,
+    bathrooms: 2,
+    sqm: 410,
     image: '/images/maison_sable_9.jpg',
     gallery: [
       '/images/maison_sable_9.jpg',
       '/images/senegal_seaside_luxury_5.jpg',
+      '/images/senegal_23.jpg',
       '/images/private_dining_11.jpg',
       '/images/romantic_escapes_13.jpg',
+      '/images/dining_25.jpg',
+      '/images/atmosphere_15.jpg',
+      '/images/brutalist_concrete_sanctuary.jpg',
     ],
     tagline: 'Brutalist coastal modernism softened by Saharan breeze and Atlantic calm.',
-    description: 'A discreet haven of 12 ocean pavilions characterized by fluted concrete, unglazed terracotta, and handwoven Senegalese cotton textiles. An intimate gateway to the cultural vitality of Senegal.',
-    amenities: ['Cliffside Infinity Plunge Pools', 'Sunset Atlantic Oyster Bar', 'Private Art & Architecture Library', 'Custom Yoga & Sound Meditation', 'Dakar Gallery Concierge', 'Complimentary Airport Transfer'],
+    description: 'A discreet haven of ocean pavilions characterized by fluted concrete, unglazed terracotta, and handwoven Senegalese cotton textiles. An intimate gateway to the cultural vitality of Senegal.',
+    discount3DaysPercent: 15,
+    discount7DaysPercent: 25,
+    architectQuote: {
+      text: "We wanted the buildings to feel as though they were sculpted by the Atlantic trade winds and baked by the Saharan sun. Raw geometry softened by handwoven craft.",
+      author: "Moussa Diop",
+      role: "Atelier Diop, Dakar"
+    },
+    sustainabilityMetrics: [
+      { stat: "100%", label: "Passive Wind-Channeled Cooling" },
+      { stat: "88%", label: "Handmade Terracotta & Local Sand Stone" },
+      { stat: "100%", label: "Artisan Textile Cooperative Partnership" },
+      { stat: "0%", label: "Synthetic Chemical Maintenance" },
+    ],
+    services: [
+      {
+        category: "Bespoke Culinary",
+        items: [
+          "Private oyster and seafood tasting bar overlooking Atlantic cliffs",
+          "Senegalese heirloom grain thieboudienne prepared by master chef",
+          "Baobab fruit tonics and hibiscus reduction welcome ceremonies",
+          "Private candlelit dunes degustation beneath desert night skies"
+        ]
+      },
+      {
+        category: "Stillness & Wellness",
+        items: [
+          "Private cantilevered clifftop plunge pool floating above crashing waves",
+          "Cold-pressed wild baobab seed restorative body oil massage",
+          "Acoustic Kora meditation sessions during sunset hours",
+          "Secluded outdoor terracotta shower courtyards"
+        ]
+      },
+      {
+        category: "Concierge & Expeditions",
+        items: [
+          "Exclusive VIP curator tour of Dakar Biennale and contemporary ateliers",
+          "Private wooden pirogue excursion to pristine coastal lagoons",
+          "Blaise Diagne International Airport expedited customs escort",
+          "Private driver and bespoke touring fleet across the Petite Côte"
+        ]
+      },
+      {
+        category: "Architectural Amenities",
+        items: [
+          "Fluted concrete colonnades channeling natural sea breezes",
+          "Custom handwoven cotton and linen furnishings by Thiès artisans",
+          "Private art & architecture monograph library",
+          "Bespoke sound system and high-speed satellite connectivity"
+        ]
+      }
+    ],
+    amenities: ['Cliffside Infinity Plunge Pools', 'Sunset Atlantic Oyster Bar', 'Private Art & Architecture Library', 'Custom Yoga & Sound Meditation', 'Dakar Gallery Concierge', 'Complimentary Airport Transfer', 'Private Pirogue Boat Tour', 'Terracotta Shower Courtyards'],
     suites: [
       { name: 'Terracotta Dune Pavilion', upgradeUSD: 0, description: 'Minimalist suite overlooking sand dunes and sea with private courtyard outdoor shower.' },
       { name: 'Horizon Ocean Villa', upgradeUSD: 520, description: 'Cliff-edge villa with cantilevered sundeck and private plunge pool floating over the Atlantic.' },

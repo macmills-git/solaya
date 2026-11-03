@@ -8,14 +8,19 @@ import { ManifestoEditorialSection } from './components/ManifestoEditorialSectio
 import { DarkTakeoverSection } from './components/DarkTakeoverSection';
 import { JournalMinimal } from './components/JournalMinimal';
 import { Footer } from './components/Footer';
+import { SanctuaryDetailModal } from './components/SanctuaryDetailModal';
 import { LightboxModal } from './components/LightboxModal';
 import { Toast } from './components/Toast';
 import { useLenis } from './hooks/useLenis';
 import { Property, CurrencyCode } from './types';
+import { PROPERTIES } from './data/solayaData';
 
 export function App() {
   const [currency] = useState<CurrencyCode>('USD');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Full Screen Expansive Sanctuary Details Modal
+  const [selectedSanctuary, setSelectedSanctuary] = useState<Property | null>(null);
 
   // Photography Lightbox Modal
   const [lightbox, setLightbox] = useState<{ isOpen: boolean; src: string; caption: string }>({
@@ -68,14 +73,14 @@ export function App() {
 
         {/* 3. Dot Grid Showcase Section (Scattered visual vignettes + "perfect customer experiences") */}
         <DotGridShowcaseSection
-          onOpenBooking={handleScrollToSanctuaries}
+          onOpenBooking={() => setSelectedSanctuary(PROPERTIES[0])}
           onOpenMonograph={() => showToast('Private monograph sent to your registered address.')}
         />
 
-        {/* 4. Minimalist Sanctuaries Portfolio (Uncluttered Architectural Cards with Corner Pixel Mosaics) */}
+        {/* 4. Minimalist Sanctuaries Portfolio (Opens Expansive Details Modal) */}
         <SanctuariesMinimal
           currency={currency}
-          onBookProperty={(prop: Property) => handleOpenLightbox(prop.image, `${prop.name} · ${prop.location}`)}
+          onBookProperty={(prop: Property) => setSelectedSanctuary(prop)}
           onOpenLightbox={handleOpenLightbox}
         />
 
@@ -84,7 +89,7 @@ export function App() {
 
         {/* 6. Pure Black Takeover ("Crafting Spaces, Crafting Stories" with Fokus poster style) */}
         <DarkTakeoverSection
-          onOpenBooking={handleScrollToSanctuaries}
+          onOpenBooking={() => setSelectedSanctuary(PROPERTIES[0])}
           onOpenLightbox={handleOpenLightbox}
         />
 
@@ -96,6 +101,16 @@ export function App() {
       <Footer
         onOpenBooking={handleScrollToSanctuaries}
       />
+
+      {/* Expansive Full-Screen Sanctuary Details Modal (Services, Amenities, Discounted 3+ Days Rates, Monograph Gallery) */}
+      {selectedSanctuary && (
+        <SanctuaryDetailModal
+          property={selectedSanctuary}
+          currency={currency}
+          onClose={() => setSelectedSanctuary(null)}
+          onShowToast={showToast}
+        />
+      )}
 
       {/* Photography Lightbox */}
       <LightboxModal

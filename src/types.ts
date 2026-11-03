@@ -31,11 +31,28 @@ export interface Property {
   baseRateUSD: number;
   guests: number;
   bedrooms: number;
+  bathrooms?: number;
+  sqm?: number;
   image: string;
   gallery: string[];
   tagline: string;
   description: string;
   amenities: string[];
+  services?: {
+    category: string;
+    items: string[];
+  }[];
+  discount3DaysPercent?: number;
+  discount7DaysPercent?: number;
+  architectQuote?: {
+    text: string;
+    author: string;
+    role: string;
+  };
+  sustainabilityMetrics?: {
+    stat: string;
+    label: string;
+  }[];
   suites: {
     name: string;
     upgradeUSD: number;
