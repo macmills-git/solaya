@@ -52,10 +52,8 @@ export function App() {
   return (
     <div className="min-h-screen bg-white text-neutral-900 antialiased flex flex-col font-ambiant selection:bg-neutral-900 selection:text-white">
       
-      {/* Haven* Clean Minimal Navigation */}
-      <Navbar
-        onOpenBooking={handleScrollToSanctuaries}
-      />
+      {/* Pure Floating Brand Logo */}
+      <Navbar />
 
       <main id="main-content">
         {/* 1. Haven* Soft Sky Gradient Hero */}
