@@ -42,7 +42,7 @@ const MONOGRAPH_SETS: MonographSet[] = [
         src: '/images/adventure___exploration_14.jpg',
         priceUSD: 1650,
         author: 'alexander ivanov',
-        title: 'western horizon horizon pavilion',
+        title: 'western horizon pavilion',
         aspectClass: 'aspect-[3/4]',
       },
       {
@@ -206,26 +206,26 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
     setActiveSetIndex((prev) => (prev === 1 ? 2 : (prev + 1) % MONOGRAPH_SETS.length));
   };
 
-  // Render individual photo card exactly matching inspiration 1
+  // Render individual photo card with razor-sharp zero corner radius (rounded-none)
   const renderPhotoCard = (photo: MonographPhoto, index: number) => {
     return (
       <div
         key={`${activeSetIndex}-${index}-${photo.src}`}
         onClick={() => onPhotoClick?.(photo.src, `${photo.title} (${photo.author})`)}
-        className={`group relative ${photo.aspectClass} w-full overflow-hidden rounded-xl sm:rounded-2xl bg-neutral-900 cursor-pointer shadow-sm transition-all duration-500 hover:shadow-2xl select-none border ${
-          isDark ? 'border-white/10 hover:border-white/30' : 'border-neutral-200/80 hover:border-neutral-400'
+        className={`group relative ${photo.aspectClass} w-full overflow-hidden rounded-none bg-neutral-900 cursor-pointer shadow-sm transition-all duration-500 hover:shadow-2xl select-none border ${
+          isDark ? 'border-white/15 hover:border-white/40' : 'border-neutral-200 hover:border-neutral-900'
         }`}
       >
         <img
           src={photo.src}
           alt={photo.title}
-          className="w-full h-full object-cover img-luxury-zoom select-none pointer-events-none"
+          className="w-full h-full object-cover img-luxury-zoom select-none pointer-events-none rounded-none"
         />
 
         {/* Ambient bottom gradient for maximum typography legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-        {/* Minimalist Price & Author Overlay (Bottom Left - Exact Reference Match) */}
+        {/* Minimalist Price & Author Overlay (Bottom Left - Zero Corner Radius Style) */}
         <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 text-white pointer-events-none space-y-0.5">
           <div className="font-queens text-lg sm:text-2xl font-light tracking-tight text-white leading-tight">
             {formatPrice(photo.priceUSD)}
@@ -235,9 +235,9 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
           </div>
         </div>
 
-        {/* Subtle Inspect Pill on Hover */}
+        {/* Subtle Inspect Pill on Hover (Zero Radius) */}
         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="p-1.5 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
+          <div className="p-1.5 rounded-none bg-black/70 backdrop-blur-md text-white border border-white/20">
             <Maximize2 className="w-3.5 h-3.5" />
           </div>
         </div>
@@ -269,10 +269,10 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
           </p>
         </div>
 
-        {/* Right Badge & Monograph Indicator */}
+        {/* Right Badge & Monograph Indicator (Zero Radius) */}
         <div className="z-10 flex items-center gap-3">
           <span
-            className={`px-3 py-1 rounded-full border text-[10px] font-mono tracking-widest uppercase ${
+            className={`px-3.5 py-1 rounded-none border text-[10px] font-mono tracking-widest uppercase ${
               isDark
                 ? 'border-white/20 bg-white/5 text-neutral-300'
                 : 'border-neutral-300 bg-white text-neutral-600'
@@ -282,7 +282,7 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
           </span>
         </div>
 
-        {/* Background Faint Watermark Typography: "on sale" / "monograph" in huge italic serif */}
+        {/* Background Faint Watermark Typography: "on sale" in huge italic serif */}
         <div
           className={`absolute -top-6 sm:-top-10 right-0 sm:right-6 font-arcilla italic text-6xl sm:text-8xl lg:text-9xl tracking-tight select-none pointer-events-none transition-opacity duration-700 ${
             isDark ? 'text-white/[0.04]' : 'text-neutral-900/[0.04]'
@@ -294,7 +294,7 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
 
       </div>
 
-      {/* 2. Asymmetric 3-Column Editorial Grid (Exact Reference Arrangement) */}
+      {/* 2. Asymmetric 3-Column Editorial Grid (Razor-Sharp Zero Corner Radius) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         {/* Column 1 (Left 4 cols): 
@@ -333,7 +333,7 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
         }`}
       >
         
-        {/* Left: Minimalist Pagination with < > Controls (Reference match: "1 / 3" with "< >") */}
+        {/* Left: Minimalist Pagination with < > Controls (Zero Corner Radius Buttons) */}
         <div className="flex items-center gap-4">
           <div className="flex items-baseline gap-1 select-none">
             <span
@@ -355,7 +355,7 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
           <div className="flex items-center gap-1.5">
             <button
               onClick={handlePrev}
-              className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-95 ${
+              className={`w-8 h-8 rounded-none border flex items-center justify-center transition-all active:scale-95 ${
                 isDark
                   ? 'border-white/20 hover:bg-white hover:text-black text-white'
                   : 'border-neutral-300 hover:bg-neutral-900 hover:text-white text-neutral-800'
@@ -366,7 +366,7 @@ export const VisualMonographSection: React.FC<VisualMonographSectionProps> = ({
             </button>
             <button
               onClick={handleNext}
-              className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-95 ${
+              className={`w-8 h-8 rounded-none border flex items-center justify-center transition-all active:scale-95 ${
                 isDark
                   ? 'border-white/20 hover:bg-white hover:text-black text-white'
                   : 'border-neutral-300 hover:bg-neutral-900 hover:text-white text-neutral-800'
